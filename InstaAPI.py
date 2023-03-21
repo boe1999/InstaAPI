@@ -18,9 +18,7 @@ class Insta_info:
 
     #define the function login to Log in with username and password
     def Login(self, username, password):
-
-        login = self.loader.login(username, password)
-        return login
+        self.loader.login(username, password)
     
     #define the function to update Set of followers
     def get_my_followers(self):
