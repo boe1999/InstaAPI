@@ -14,7 +14,7 @@ class Insta_info:
 
         self.username = username
         self.loader = instaloader.Instaloader()
-        self.profile = instaloader.Profile.from_username(self.loader.context,self.username)
+        
 
     #define the function login to Log in with username and password
     def Login(self, username, password):
@@ -24,13 +24,13 @@ class Insta_info:
     
     #define the function to update Set of followers
     def get_my_followers(self):
-
+        self.profile = instaloader.Profile.from_username(self.loader.context,self.username)
         for followers in self.profile.get_followers():
             followersSet.add(followers.username)
 
     #define the function to upadate Set of followees
     def get_my_followees(self):
-
+        self.profile = instaloader.Profile.from_username(self.loader.context,self.username)
         for followees in self.profile.get_followees():
             followeesSet.add(followees.username)
 
@@ -38,7 +38,7 @@ class Insta_info:
     def get_my_unfollowers(self):
         followers = set(followersSet)
         followees = set(followeesSet)
-        return str(followees.difference(followers))
+        return list(followees.difference(followers))
 
 @app.route('/')
 def main():
@@ -55,4 +55,10 @@ def main():
         return (insta_info.get_my_unfollowers())
     except Exception as err:
         return str(err)
+
+if __name__ == "__main__":
+    # Development only: run "python main.py" and open http://localhost:8080
+    # When deploying to Cloud Run, a production-grade WSGI HTTP server,
+    # such as Gunicorn, will serve the app.
+    app.run(host="localhost", port=8080, debug=True)
 
