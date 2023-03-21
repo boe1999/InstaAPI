@@ -5,8 +5,6 @@ app = Flask(__name__)
 
 followersSet = set()
 followeesSet = set()
-unfollowersSet = set()
-whiteList = set()
 
 class Insta_info:
 
@@ -43,14 +41,10 @@ def main():
     password = request.args.get('passw')
     insta_info = Insta_info(username)
     try:
-        try:
-            insta_info.loader.load_session_from_file(username,"session")
-        except:
-            insta_info.Login(username, password)
-            insta_info.loader.save_session_to_file("session")
+        insta_info.Login(username, password)
         insta_info.get_my_followers()
         insta_info.get_my_followees()
         return (insta_info.get_my_unfollowers())
     except Exception as err:
-        return (err)
+        return str(err)
 
