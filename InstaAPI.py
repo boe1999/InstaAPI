@@ -45,10 +45,10 @@ def main():
     #retrieve username and password from url (GET)
     username = request.args.get('user')
     password = request.args.get('passw')
-    #initialize class insta_info
-    insta_info = Insta_info(username)
     #try to login and call functions otherwise call exception
     try:
+        #initialize class insta_info
+        insta_info = Insta_info(username)
         insta_info.Login(username, password)
         insta_info.get_my_followers()
         insta_info.get_my_followees()
